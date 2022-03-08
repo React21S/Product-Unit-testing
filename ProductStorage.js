@@ -28,7 +28,7 @@ module.exports = class ProductStorage{
         const modelFound=[];
         for (let product of this.productStorage){
             if(product.model===model){
-               return product
+               modelFound.push(product.id)
             }
         }
         return modelFound;
@@ -45,7 +45,6 @@ module.exports = class ProductStorage{
                     }
                 }
             }
-          
         }
         return types
     };
@@ -56,7 +55,7 @@ module.exports = class ProductStorage{
             const typesFound = [];
             for(let product of this.productStorage){
                 if(product.type ===type){
-                    return product
+                   typesFound.push(product)
                 }
             }
             return typesFound;
@@ -79,13 +78,12 @@ module.exports = class ProductStorage{
         if (!id){
             throw new Error('parameter missing');
         }
-        const foundAccessories = [];
             for(let product of this.productStorage){
-                if(product.id ===id && !foundAccessories.includes(product.accessories)){
+                if(product.id ===id && (product.accessories)){
                     return product.accessories
                 }
             }
-        return foundAccessories; 
+        return []
         
     };
 
@@ -94,11 +92,9 @@ module.exports = class ProductStorage{
         if (!id){
             throw new Error('parameter missing');
         }
-        const priceFound =[];
         for (let product of this.productStorage){
-            let productPrice = 0
             if(product.id===id){
-                return productPrice+=product.price
+                return product.price
             };
         }
         throw new Error("nothing found with given id");
@@ -107,19 +103,16 @@ module.exports = class ProductStorage{
     // getTotalPrice 
     getTotalPrice(id){
         if (!id) throw new Error("parameter missing");
-        let TotalSum = 0;
         for(let product of this.productStorage){
-            let productSum = product.price
             if(product.id===id){
-                let sum = 0;
+                let productSum = product.price
                 for(let extra of product.extras){
-                    sum+=extra.price
+                productSum+=extra.price
                 }
-                return TotalSum=sum+productSum;
+                return productSum
             };
         };
-        throw new Error ('nothing found with given id')
-        
+        throw new Error ('nothing found with given id') 
     };
 
     //getPriceOfTheExtras

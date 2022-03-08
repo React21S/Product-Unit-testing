@@ -63,15 +63,15 @@ describe('Testing method getAllIdsByModel with model value.(Future 2025, Beast I
 
         const testValue1 =[
             // model     expected
-            ["Future 2025", dataStorage[0]],
+            ["Future 2025", [1]],
         ];
         const testValue2 =[
             // model      expected
-            ["Beast II", dataStorage[1]],
+            ["Beast II", [2]],
         ];
         const testValue3 =[
             // model      expected
-            ["MaxEffect 2000", dataStorage[2]],
+            ["MaxEffect 2000", [3]],
         ];
         test.each(testValue1)(' Test 1-1: model %s returns %p', (model,expected)=>{
             expect(storage.getAllIdsByModel(model)).toEqual(expected);
@@ -189,11 +189,12 @@ describe('Testing method getAllProductTypes',()=>{
     const storage = new ProductStorage(dataStorage);
 
     describe('Test 1: testing with test.each',()=>{
-   
+
         const testValue1 =[
-            // type    expected
-            ["moccamaster", dataStorage[0]],
+            // type     expected
+            ["vacuum cleaner", dataStorage[0]],
         ];
+
         const testValue2 =[
             // type     expected
             ["vacuum cleaner", dataStorage[1]],
@@ -204,13 +205,13 @@ describe('Testing method getAllProductTypes',()=>{
         ];
 
         test.each(testValue1)(' Test 1-1 if the product: type %s returns %p', (type,expected)=>{
-            expect(storage.getAllProductsByType(type)).toEqual(expected);
+            expect(storage.getAllProductsByType("moccamaster")).toEqual([expected]);
         });
         test.each(testValue2)(' Test 1-2 if the product: type %s returns %p', (type,expected)=>{
-            expect(storage.getAllProductsByType(type)).toEqual(expected);
+            expect(storage.getAllProductsByType(type)).toEqual([expected]);
         });
         test.each(testValue3)(' Test 1-3 if the product: type %s returns %p', (type,expected)=>{
-            expect(storage.getAllProductsByType(type)).toEqual(expected);
+            expect(storage.getAllProductsByType(type)).toEqual([expected]);
         });
     });
 
